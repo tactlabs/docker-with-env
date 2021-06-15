@@ -1,11 +1,5 @@
 # Docker-compose-base
 
-## Enter the port you want to run
-
-```
-export PY_PORT=5000
-```
-
 ## build the App
 
 ```
