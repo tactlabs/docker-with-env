@@ -1,0 +1,45 @@
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+version: 2.1
+orbs:
+
+  aws-ecr: circleci/aws-ecr@7.2.0
+
+jobs:
+
+  build_sample_docker:
+    description: build and push to aws ecr
+    docker:
+      - image: circleci/python:3.7.1
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: false
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: ACCESS_KEY_ID
+          aws-secret-access-key: SECRET_ACCESS_KEY
+          create-repo: true
+          dockerfile: Dockerfile
+          path: .
+          region: AWS_REGION_ENV
+          repo: sample_docker
+          skip-when-tags-exist: false
+          tag: latest
+
+workflows:
+
+  build_and_push:
+  
+    jobs:
+
+      - build_sample_docker:
+
+          name: 'build_sample_docker'
+          filters:
+            branches:
+              only:
+                # - dev
+                - master
+                # - dummy
