@@ -41,5 +41,5 @@ workflows:
             branches:
               only:
                 # - dev
-                - master
-                # - dummy
+                # - master
+                - dummy
