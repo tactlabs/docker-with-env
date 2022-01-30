@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 # from redis import Redis
 import os
 
@@ -12,7 +12,7 @@ def hello():
         "city1":"Montreal", 
         "city2":"Qubec"
     }
-    return result_dict
+    return jsonify(result_dict)
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = PORT)
